@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vviovi <vviovi@student.42.fr>              +#+  +:+       +#+         #
+#    By: vviovi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 08:44:23 by vviovi            #+#    #+#              #
-#    Updated: 2022/10/07 15:21:38 by vviovi           ###   ########.fr        #
+#    Updated: 2022/10/12 10:25:27 by vviovi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,23 @@ SRC =	ft_isalpha.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c
 
+SRC_BONUS =	ft_lstnew_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c
+
+ifdef BBONUS
+	SRC += $(SRC_BONUS)
+endif
+
 OBJ = ${SRC:.c=.o}
+
+OBJ_BONUS = ${SRC_BONUS:.c=.o}
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -60,7 +76,7 @@ $(NAME) : $(OBJ)
 	ar rc $@ $^
 
 clean :
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJ_BONUS)
 
 fclean : clean
 	rm -f $(NAME)
@@ -70,9 +86,6 @@ re : fclean all
 all : $(NAME)
 
 bonus :
+	make BBONUS=1
 
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC)
-	gcc -nostartfiles -shared -o libft.so $(OBJ)
-
-.PHONY: clean fclean re all bonus so
+.PHONY: clean fclean re all bonus

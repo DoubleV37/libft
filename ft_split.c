@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviovi <vviovi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 11:41:21 by vviovi            #+#    #+#             */
-/*   Updated: 2022/10/07 11:05:59 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/10/12 10:17:38 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,25 @@ static int	getlenword(int pos, char const *str, char c)
 	return (lenword);
 }
 
+static int	ft_check_word(char **str, char *word, int j)
+{
+	int	i;
+
+	if (word)
+		return (1);
+	else
+	{
+		i = 0;
+		while (i <= j)
+		{
+			free(str[i]);
+			i++;
+		}
+		free(str);
+		return (0);
+	}
+}
+
 static char	**ft_fill_tab(char **tabstr, char const *s, char const c)
 {
 	int		i;
@@ -58,12 +77,11 @@ static char	**ft_fill_tab(char **tabstr, char const *s, char const c)
 		{
 			lenword = getlenword(i, s, c);
 			word = ft_substr(s, i, lenword);
-			if (word == NULL)
+			if (!ft_check_word(tabstr, word, j))
 				return (NULL);
 			word[lenword] = '\0';
 			i += lenword;
-			tabstr[j] = word;
-			j++;
+			tabstr[j++] = word;
 		}
 	}
 	tabstr[j] = NULL;

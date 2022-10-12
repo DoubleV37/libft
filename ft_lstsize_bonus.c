@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 14:02:29 by vviovi            #+#    #+#             */
-/*   Updated: 2022/10/10 08:35:23 by vviovi           ###   ########.fr       */
+/*   Created: 2022/10/10 14:24:18 by vviovi            #+#    #+#             */
+/*   Updated: 2022/10/10 14:40:11 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_lstsize(t_list *lst)
 {
-	size_t				i;
-	unsigned char		*res;
+	t_list	*tmp;
+	int		i;
 
-	res = (unsigned char *)s;
 	i = 0;
-	while (i < n)
+	if (lst != NULL)
 	{
-		res[i] = 0;
+		tmp = lst->next;
+		while (tmp != NULL)
+		{
+			tmp = tmp->next;
+			i++;
+		}
 		i++;
 	}
+	return (i);
 }
